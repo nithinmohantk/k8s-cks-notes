@@ -863,3 +863,27 @@ Show bash processes:
 ## Handy Stuff
 
 - `/var/log/pods` - You can see `Pod` logs here if you're unable to use the API for some reason.
+
+
+## CIS-CAT Pro
+
+We have installed the CIS-CAT Pro Assessor tool called Assessor-CLI, under /root.
+
+Please run the assessment with the Assessor-CLI.sh script inside Assessor directory and generate a report called index.html in the output directory /var/www/html/.Once done, the report can be viewed using the Assessment Report tab located above the terminal.
+
+
+
+Run the test in interactive mode and use below settings:
+
+Benchmarks/Data-Stream Collections: : CIS Ubuntu Linux 20.04 LTS Benchmark v2.0.1
+
+Profile : Level 1 - Server
+```
+cd /root/Assessor
+sh ./Assessor-CLI.sh -i -rd /var/www/html/ -nts -rp index
+```
+Benchmarks/Data-Stream Collections: CIS Ubuntu Linux 20.04 LTS Benchmark v2.0.1
+
+Profile: Level 1 - Server
+
+If the new changes are not reflected on the Assessment Report tab, then reload the report page
