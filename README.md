@@ -887,3 +887,85 @@ Benchmarks/Data-Stream Collections: CIS Ubuntu Linux 20.04 LTS Benchmark v2.0.1
 Profile: Level 1 - Server
 
 If the new changes are not reflected on the Assessment Report tab, then reload the report page
+
+## Kubebench
+```
+ ./kube-bench --config-dir `pwd`/cfg --config `pwd`/cfg/config.yaml
+ ```
+
+```
+kubectl get clusterroles --no-headers  | wc -l
+kubectl get clusterrolebindings --no-headers  | wc -l
+k describe clusterrole cluster-admin                                                          
+kubectl api-resources --namespaced=false
+kubectl describe clusterrolebinding cluster-admin
+```
+
+```
+#Cluster role
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: node-admin
+rules:
+- apiGroups: [""]
+  resources: ["nodes"]
+  verbs: ["get", "watch", "list", "create", "delete"]
+
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: michelle-binding
+subjects:
+- kind: User
+  name: michelle
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: node-admin
+  apiGroup: rbac.authorization.k8s.io
+
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: storage-admin
+rules:
+- apiGroups: [""]
+  resources: ["persistentvolumes"]
+  verbs: ["get", "watch", "list", "create", "delete"]
+- apiGroups: ["storage.k8s.io"]
+  resources: ["storageclasses"]
+  verbs: ["get", "watch", "list", "create", "delete"]
+
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: michelle-storage-admin
+subjects:
+- kind: User
+  name: michelle
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: storage-admin
+  apiGroup: rbac.authorization.k8s.io
+
+```
+
+ test using 
+```
+kubectl auth can-i list storageclasses --as michelle
+```
+
+```
+cat /etc/passwd
+id david
+passwd david
+groupdel devs
+userdel ray
+usermod -s /usr/sbin/nologin himanshi
+```
